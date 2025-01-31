@@ -1,7 +1,7 @@
 {
   "expo": {
     "name": "SpellCards",
-    "slug": "SpellCards",
+    "slug": "spellcards",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/images/icon.png",
@@ -13,7 +13,7 @@
     },
     "android": {
       "adaptiveIcon": {
-        "foregroundImage": "./assets/images/adaptive-icon.png",
+        "foregroundImage": "./assets/images/splash.png",
         "backgroundColor": "#ffffff"
       }
     },
@@ -36,6 +36,12 @@
     ],
     "experiments": {
       "typedRoutes": true
-    }
+    },
+    "extra": {
+      "eas": {
+        "projectId": "4fe39282-3790-4084-91ed-3e66c01c7074"
+      }
+    },
+    "owner": "latsma"
   }
 }
