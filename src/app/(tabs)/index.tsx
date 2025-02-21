@@ -1,8 +1,9 @@
+import React from 'react';
 import {View} from 'react-native';
-
-import useSpells from "@/hooks/queries/useSpells";
-import SpellList from "@/components/SpellList/SpellList";
 import useStatusBarStyle from "@/hooks/useStatusBarStyle/useStatusBarStyle";
+import SpellList from "@/components/SpellList/SpellList";
+import useSpells from "@/hooks/queries/useSpells";
+
 
 export default function Index() {
     useStatusBarStyle('light')

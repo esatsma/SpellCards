@@ -2,9 +2,10 @@ import { Tabs } from 'expo-router';
 import React from 'react';
 import { Platform } from 'react-native';
 
-import TabBarBackground from '@/components/ui/TabBarBackground';
-import Header from "@/components/ui/Header/Header";
+
 import {Feather, FontAwesome6} from "@expo/vector-icons";
+import TabBarBackground from "@/components/ui/TabBarBackground";
+import Header from "@/components/Header/Header";
 
 export default function TabLayout() {
   return (

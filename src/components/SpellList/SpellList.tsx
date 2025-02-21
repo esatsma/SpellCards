@@ -1,3 +1,4 @@
+import React from 'react';
 import {FlatList, View} from "react-native";
 import {SpellCard} from "@/components/SpellCard/Spellcard";
 import {Spell} from "@/types/spellService.type";
