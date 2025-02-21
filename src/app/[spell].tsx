@@ -1,10 +1,10 @@
 import {ScrollView, StyleSheet, View} from 'react-native';
 
 import useSpell from "@/hooks/queries/useSpell";
-import { Text } from "react-native";
 import React from "react";
 import {useLocalSearchParams} from "expo-router";
 import {Heading} from "@/components/ui/heading";
+import {Text} from '@/components/ui/text'
 import useStatusBarStyle from "@/hooks/useStatusBarStyle/useStatusBarStyle";
 import {HStack} from "@/components/ui/hstack";
 import {FontAwesome6} from "@expo/vector-icons";
@@ -45,17 +45,12 @@ export default function Spell() {
              <HStack space={'lg'} style={styles.metaDataContainer}>
                  <View><Heading style={styles.metaData}>Casting Time</Heading><Text style={styles.metaData}>{data?.casting_time}</Text></View>
                  <View><Heading style={styles.metaData}>Range</Heading><Text style={styles.metaData}>{data?.range}</Text></View></HStack>
-             <HStack space={'lg'} style={styles.metaDataContainer} >
+             <HStack space={'lg'} style={[styles.metaDataContainer, {marginBottom: 8}]} >
                  <View><Heading style={styles.metaData}>Components</Heading><Text style={styles.metaData}>{data?.components}</Text></View>
                  <View><Heading style={styles.metaData}>Duration</Heading><Text style={styles.metaData}>{data?.duration} {data?.concentration && <FontAwesome6 name={'copyright'} size={24}  />}</Text></View>
              </HStack>
 
-
-             <Text>{data?.concentration}</Text>
-
-
-             <Text>{data?.level}</Text>
-             <Text>{data?.desc.join()}</Text>
+             {data?.desc.map((paragraph, index) => <Text key={index} style={{marginBottom: 8}}>{paragraph}</Text>)}
              <Text>{data?.higher_level}</Text>
         </ScrollView>
     )
