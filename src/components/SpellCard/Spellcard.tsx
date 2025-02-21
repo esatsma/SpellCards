@@ -21,8 +21,11 @@ export const SpellCard = (spell: Spell) => {
             <Card size="md" variant="elevated" style={styles.cardHeader}>
                 <Heading size="xl" style={styles.title}>
                     {spell.name}
-                </Heading><Text size="md">Spell level {spell.level}</Text>
-                <SpellBookButton spellId={spell.index} />
+                </Heading>
+                <View style={styles.cardContent}>
+                    <Text size="md">Spell level {spell.level}</Text>
+                    <SpellBookButton spellId={spell.index} />
+                </View>
             </Card>
         </Pressable>
     </Link>
@@ -30,7 +33,6 @@ export const SpellCard = (spell: Spell) => {
 
 const styles = StyleSheet.create({
     card: {
-        flex: 1,
         backgroundColor: '#FFF',
         borderColor: '#06402B',
         borderTopWidth: 1,
@@ -48,8 +50,9 @@ const styles = StyleSheet.create({
         paddingHorizontal: 4
     },
     cardContent: {
-        flexDirection: "column",
-        padding: 4
+        flexDirection: "row",
+        gap: 8,
+        alignItems: 'center'
     },
     title: {
         color: '#06402B'
