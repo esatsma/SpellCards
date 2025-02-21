@@ -46,7 +46,7 @@ export default function Spell() {
                  <View><Heading style={styles.metaData}>Casting Time</Heading><Text style={styles.metaData}>{data?.casting_time}</Text></View>
                  <View><Heading style={styles.metaData}>Range</Heading><Text style={styles.metaData}>{data?.range}</Text></View></HStack>
              <HStack space={'lg'} style={[styles.metaDataContainer, {marginBottom: 8}]} >
-                 <View><Heading style={styles.metaData}>Components</Heading><Text style={styles.metaData}>{data?.components}</Text></View>
+                 <View><Heading style={styles.metaData}>Components</Heading><Text style={styles.metaData}>{data?.components.join(', ')}</Text></View>
                  <View><Heading style={styles.metaData}>Duration</Heading><Text style={styles.metaData}>{data?.duration} {data?.concentration && <FontAwesome6 name={'copyright'} size={24}  />}</Text></View>
              </HStack>
 
