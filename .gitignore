@@ -40,3 +40,6 @@ ios
 *.tsbuildinfo
 
 app-example
+
+# PHP Storm
+.idea

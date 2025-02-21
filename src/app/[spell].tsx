@@ -7,6 +7,7 @@ import {useLocalSearchParams} from "expo-router";
 import {Heading} from "@/components/ui/heading";
 import useStatusBarStyle from "@/hooks/useStatusBarStyle/useStatusBarStyle";
 import {HStack} from "@/components/ui/hstack";
+import {FontAwesome6} from "@expo/vector-icons";
 
 export default function Spell() {
     useStatusBarStyle('light')
@@ -44,7 +45,10 @@ export default function Spell() {
              <HStack space={'lg'} style={styles.metaDataContainer}>
                  <View><Heading style={styles.metaData}>Casting Time</Heading><Text style={styles.metaData}>{data?.casting_time}</Text></View>
                  <View><Heading style={styles.metaData}>Range</Heading><Text style={styles.metaData}>{data?.range}</Text></View></HStack>
-             <HStack space={'lg'}><Text>{data?.components}</Text> <Text>{data?.duration}</Text></HStack>
+             <HStack space={'lg'} style={styles.metaDataContainer} >
+                 <View><Heading style={styles.metaData}>Components</Heading><Text style={styles.metaData}>{data?.components}</Text></View>
+                 <View><Heading style={styles.metaData}>Duration</Heading><Text style={styles.metaData}>{data?.duration} {data?.concentration && <FontAwesome6 name={'copyright'} size={24}  />}</Text></View>
+             </HStack>
 
 
              <Text>{data?.concentration}</Text>
@@ -78,6 +82,8 @@ const styles = StyleSheet.create({
        fontSize: 16,
     },
     metaDataContainer: {
+       justifyContent:'space-evenly',
+        textAlign: 'left',
        backgroundColor: '#06402B',
     },
     metaData: {
