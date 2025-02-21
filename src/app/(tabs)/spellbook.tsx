@@ -6,9 +6,11 @@ import {Link} from "expo-router";
 import {Feather} from "@expo/vector-icons";
 import React from "react";
 import {Text} from '@/components/ui/text'
+import useStatusBarStyle from "@/hooks/useStatusBarStyle/useStatusBarStyle";
 
 
 export default function SpellBook() {
+  useStatusBarStyle('light')
   const { spells } = useSpellBookStore()
   const { data, isFetching } = useSpells()
 

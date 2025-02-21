@@ -2,17 +2,16 @@ import { useFonts } from 'expo-font';
 import { Stack } from 'expo-router';
 import * as SplashScreen from 'expo-splash-screen';
 import { StatusBar } from 'expo-status-bar';
-import { useEffect } from 'react';
+import React, { useEffect } from 'react';
 import 'react-native-reanimated';
-import { StyleSheet } from 'react-native';
 
 import {QueryClientProvider} from "@tanstack/react-query";
 import QueryClient from "@/service/caching/queryClient";
-import {GluestackUIProvider} from "@/components/ui/gluestack-ui-provider";
 import Header from "@/components/ui/Header/Header";
 import useStatusBarStyle from "@/hooks/useStatusBarStyle/useStatusBarStyle";
 import {useIsStoreHydrated} from "@/store/spellBookStore/spellBookStore";
-import {SafeAreaView} from "react-native";
+
+import "../global.css"
 
 // Prevent the splash screen from auto-hiding before asset loading is complete.
 SplashScreen.preventAutoHideAsync();
@@ -32,7 +31,7 @@ export default function RootLayout() {
   }, [loaded, isSpellBookStoreHydrated]);
 
   return (
-      <GluestackUIProvider>
+
         <QueryClientProvider client={QueryClient} >
                 <Stack screenOptions={{
                   headerShown: true,
@@ -44,6 +43,6 @@ export default function RootLayout() {
                 </Stack>
                 <StatusBar style="auto" />
         </QueryClientProvider>
-      </GluestackUIProvider>
+
   );
 }

@@ -2,8 +2,10 @@ import {View} from 'react-native';
 
 import useSpells from "@/hooks/queries/useSpells";
 import SpellList from "@/components/SpellList/SpellList";
+import useStatusBarStyle from "@/hooks/useStatusBarStyle/useStatusBarStyle";
 
 export default function Index() {
+    useStatusBarStyle('light')
   const {data} = useSpells()
 
     if(!data?.results) {

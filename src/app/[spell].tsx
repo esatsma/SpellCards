@@ -6,22 +6,50 @@ import React from "react";
 import {useLocalSearchParams} from "expo-router";
 import {Heading} from "@/components/ui/heading";
 import useStatusBarStyle from "@/hooks/useStatusBarStyle/useStatusBarStyle";
+import {HStack} from "@/components/ui/hstack";
 
 export default function Spell() {
     useStatusBarStyle('light')
     const { spell } = useLocalSearchParams<{ spell: string }>()
 
     const { data, isPending } = useSpell(spell)
+
+    const formatSpellLevel = (spellLevel?: number) => {
+        if(!spellLevel || spellLevel === 0) {
+            return ''
+        }
+
+        if(spellLevel === 1) {
+            return '1st-level'
+        }
+
+        if(spellLevel === 2) {
+            return '2nd-level'
+        }
+
+        if(spellLevel === 3) {
+            return '3rd-level'
+        }
+
+        if(spellLevel > 3) {
+            return `${spellLevel}th-level`
+        }
+    }
+
      return (
          <ScrollView style={styles.container}>
-            <Heading size="xl" style={styles.title}>{data?.name}</Heading>
-             <View style={styles.subTitle}><Text>{data?.level}</Text><Text>{data?.school.name}</Text></View>
+            <Heading size="2xl" style={styles.title}>{data?.name}</Heading>
+             <View style={styles.subTitleContainer}><Text style={styles.subTitle}>{formatSpellLevel(data?.level)} {data?.school.name} {data?.level === 0 ? 'Cantrip' : ''}</Text></View>
 
-             <Text>{data?.components}</Text>
+             <HStack space={'lg'} style={styles.metaDataContainer}>
+                 <View><Heading style={styles.metaData}>Casting Time</Heading><Text style={styles.metaData}>{data?.casting_time}</Text></View>
+                 <View><Heading style={styles.metaData}>Range</Heading><Text style={styles.metaData}>{data?.range}</Text></View></HStack>
+             <HStack space={'lg'}><Text>{data?.components}</Text> <Text>{data?.duration}</Text></HStack>
+
 
              <Text>{data?.concentration}</Text>
-             <Text>{data?.duration}</Text>
-             <Text>{data?.casting_time}</Text>
+
+
              <Text>{data?.level}</Text>
              <Text>{data?.desc.join()}</Text>
              <Text>{data?.higher_level}</Text>
@@ -36,13 +64,23 @@ const styles = StyleSheet.create({
        flexDirection: 'column'
    },
     title: {
-       alignItems: 'center',
+       textAlign: 'center',
         borderBottomWidth: 1,
         borderColor: '#06402B',
         color: '#06402B'
     },
-    subTitle: {
+    subTitleContainer: {
        flexDirection: 'row',
-       fontSize: 12
+        flex: 1,
+        justifyContent: 'center'
+    },
+    subTitle: {
+       fontSize: 16,
+    },
+    metaDataContainer: {
+       backgroundColor: '#06402B',
+    },
+    metaData: {
+       color: '#FFF'
     }
 });
