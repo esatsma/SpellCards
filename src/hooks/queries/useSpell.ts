@@ -2,7 +2,7 @@ import { useQuery } from '@tanstack/react-query'
 
 import spellRequest from "@/service/api/requests/spellRequest";
 
-const useSpells = (spellName: string) => {
+const useSpell = (spellName: string) => {
     return useQuery({
         queryKey: ['spells', spellName],
         queryFn: async () => {
@@ -17,4 +17,4 @@ const useSpells = (spellName: string) => {
     })
 }
 
-export default useSpells
+export default useSpell

@@ -2,13 +2,14 @@ import React from 'react'
 import { StyleSheet, View, Text } from 'react-native'
 import { useSafeAreaInsets } from 'react-native-safe-area-context'
 import HeaderBackButton from "@/components/ui/Header/HeaderBackButton/HeaderBackButton";
+import {Heading} from "@/components/ui/heading";
 
 export type HeaderProps = {
     title: string
     subtitle?: string
     canGoBack?: boolean
     onPressBack: VoidFunction
-    hasBottomTrim?: boolean
+    buttonRight?: React.ReactNode
 }
 
 const styles = StyleSheet.create({
@@ -43,6 +44,7 @@ const Header = ({
         title,
         canGoBack,
         onPressBack,
+        buttonRight,
     }: HeaderProps) => {
     const insets = useSafeAreaInsets()
 
@@ -55,14 +57,16 @@ const Header = ({
                     !canGoBack && styles.leftPadding,
                 ]}
             >
-                <Text
+                <Heading
+                    size="xl"
                     style={styles.text}
                     numberOfLines={1}
                     ellipsizeMode="tail"
                 >
                     {title}
-                </Text>
+                </Heading>
             </View>
+            {buttonRight && buttonRight}
         </View>
     )
 }

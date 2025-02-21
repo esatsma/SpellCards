@@ -1,34 +1,19 @@
-import {StyleSheet, View} from 'react-native';
+import {View} from 'react-native';
 
 import useSpells from "@/hooks/queries/useSpells";
 import SpellList from "@/components/SpellList/SpellList";
-import {useSafeAreaInsets} from "react-native-safe-area-context";
+import {queryClient} from "@/service/caching";
 
 export default function Index() {
-  const { data, pending } = useSpells()
+  const {data} = useSpells()
 
-  return (<View style={{padding: 8}}>
-    {!pending && <SpellList spells={data} />}
+    if(!data?.results) {
+        return
+    }
+
+  return (
+      <View style={{padding: 8}}>
+        <SpellList spells={data?.results} />
       </View>
   )
 }
-
-
-const styles = StyleSheet.create({
-  titleContainer: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    gap: 8,
-  },
-  stepContainer: {
-    gap: 8,
-    marginBottom: 8,
-  },
-  reactLogo: {
-    height: 178,
-    width: 290,
-    bottom: 0,
-    left: 0,
-    position: 'absolute',
-  },
-});

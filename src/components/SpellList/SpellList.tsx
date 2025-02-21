@@ -1,9 +1,9 @@
 import {FlatList, View} from "react-native";
 import {SpellCard} from "@/components/SpellCard/Spellcard";
-import {SpellResponse} from "@/service/api/requests/spellRequest";
+import {Spell} from "@/types/spellService.type";
 
 type SpellListProps = {
-    spells: (SpellResponse | undefined)[]
+    spells: Spell[]
 }
 
 
@@ -13,7 +13,7 @@ const SpellList = ({spells}: SpellListProps) => {
         renderItem={
             ({item}) => <SpellCard {...item} />
         }
-        ItemSeparatorComponent={() => <View style={{height: 8, backgroundColor: '#d9e5d3' }} />}
+        ItemSeparatorComponent={() => <View style={{height: 8, backgroundColor: '#EEE' }} />}
     />
 }
 

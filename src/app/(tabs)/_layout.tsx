@@ -2,29 +2,25 @@ import { Tabs } from 'expo-router';
 import React from 'react';
 import { Platform } from 'react-native';
 
-import { HapticTab } from '@/components/HapticTab';
 import TabBarBackground from '@/components/ui/TabBarBackground';
-import { Colors } from '@/constants/Colors';
-import { useColorScheme } from '@/hooks/useColorScheme';
 import Header from "@/components/ui/Header/Header";
 import {Feather, FontAwesome6} from "@expo/vector-icons";
 
 export default function TabLayout() {
-  const colorScheme = useColorScheme();
-
   return (
     <Tabs
       screenOptions={{
-        tabBarActiveTintColor: Colors[colorScheme ?? 'dark'].tint,
+        tabBarActiveTintColor: '#06402B',
+          tabBarInactiveTintColor: '#2E6F40',
         header: (props) => <Header title={props.options.title ? props.options.title : props.route.name} onPressBack={props.navigation.goBack} canGoBack={props.navigation.canGoBack()} />,
         headerShown: true,
-        tabBarButton: HapticTab,
         tabBarBackground: TabBarBackground,
         tabBarStyle: Platform.select({
           ios: {
             position: 'absolute',
           },
-          default: {},
+          default: {
+          },
         }),
       }}>
       <Tabs.Screen
