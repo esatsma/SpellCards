@@ -43,7 +43,7 @@ export default function Spell() {
               {paragraph}
             </Text>
           ))}
-          {data.higher_level && (
+          {data.higher_level.length > 0 && (
             <>
               <Heading size={"sm"} style={{ marginBottom: 0, paddingLeft: 12 }}>
                 Upcasting
