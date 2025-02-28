@@ -9,6 +9,8 @@ import useStatusBarStyle from "@/hooks/useStatusBarStyle/useStatusBarStyle";
 import { HStack } from "@/components/ui/hstack";
 import { FontAwesome6 } from "@expo/vector-icons";
 import useDynamicHeaderStore from "@/store/dynamicHeaderStore/dynamicHeaderStore";
+import { formatSpellLevel } from "@/helpers/formatSpellLevel/formatSpellLevel";
+import SpellMetaData from "@/components/SpellMetaData/SpellMetaData";
 
 export default function Spell() {
   useStatusBarStyle("light");
@@ -25,104 +27,63 @@ export default function Spell() {
     setDynamicHeaderTitle(data.name);
   }, [data, setDynamicHeaderTitle]);
 
-  const formatSpellLevel = (spellLevel?: number) => {
-    if (!spellLevel || spellLevel === 0) {
-      return "";
-    }
-
-    if (spellLevel === 1) {
-      return "1st-level";
-    }
-
-    if (spellLevel === 2) {
-      return "2nd-level";
-    }
-
-    if (spellLevel === 3) {
-      return "3rd-level";
-    }
-
-    if (spellLevel > 3) {
-      return `${spellLevel}th-level`;
-    }
-  };
-
   return (
     <ScrollView style={styles.container}>
-      <Heading size="2xl" style={styles.title}>
-        {data?.name}
-      </Heading>
-      <View style={styles.subTitleContainer}>
-        <Text style={styles.subTitle}>
-          {formatSpellLevel(data?.level)} {data?.school.name}{" "}
-          {data?.level === 0 ? "Cantrip" : ""}
-        </Text>
-      </View>
+      {data && (
+        <>
+          <View style={styles.subTitleContainer}>
+            <Text style={styles.subTitle}>
+              {formatSpellLevel(data?.level)} {data?.school.name}{" "}
+              {data.level === 0 ? "Cantrip" : ""}
+            </Text>
+          </View>
 
-      <HStack space={"lg"} style={styles.metaDataContainer}>
-        <View>
-          <Heading style={styles.metaData}>Casting Time</Heading>
-          <Text style={styles.metaData}>{data?.casting_time}</Text>
-        </View>
-        <View>
-          <Heading style={styles.metaData}>Range</Heading>
-          <Text style={styles.metaData}>{data?.range}</Text>
-        </View>
-      </HStack>
-      <HStack
-        space={"lg"}
-        style={[styles.metaDataContainer, { marginBottom: 8 }]}
-      >
-        <View>
-          <Heading style={styles.metaData}>Components</Heading>
-          <Text style={styles.metaData}>{data?.components.join(", ")}</Text>
-        </View>
-        <View>
-          <Heading style={styles.metaData}>Duration</Heading>
-          <Text style={styles.metaData}>
-            {data?.duration}{" "}
-            {data?.concentration && (
-              <FontAwesome6 name={"copyright"} size={24} />
-            )}
-          </Text>
-        </View>
-      </HStack>
+          <SpellMetaData spell={data} />
 
-      {data?.desc.map((paragraph, index) => (
-        <Text key={index} style={{ marginBottom: 8 }}>
-          {paragraph}
-        </Text>
-      ))}
-      <Text>{data?.higher_level}</Text>
+          {data?.desc.map((paragraph, index) => (
+            <Text key={index} style={styles.description}>
+              {paragraph}
+            </Text>
+          ))}
+          <Text>{data.higher_level}</Text>
+        </>
+      )}
     </ScrollView>
   );
 }
 
 const styles = StyleSheet.create({
   container: {
-    padding: 8,
     flexDirection: "column",
   },
-  title: {
-    textAlign: "center",
-    borderBottomWidth: 1,
-    borderColor: "#06402B",
-    color: "#06402B",
-  },
   subTitleContainer: {
+    borderTopWidth: 1,
+    borderColor: "#FFF",
+    paddingTop: 8,
     flexDirection: "row",
     flex: 1,
     justifyContent: "center",
+    backgroundColor: "#06402B",
   },
   subTitle: {
     fontSize: 16,
+    color: "#FFF",
   },
   metaDataContainer: {
-    justifyContent: "space-evenly",
+    padding: 8,
+    justifyContent: "flex-start",
     textAlign: "left",
     backgroundColor: "#06402B",
   },
+  metaDataItem: {
+    flex: 1,
+  },
   metaData: {
     color: "#FFF",
+  },
+  description: {
+    fontSize: 16,
+    marginBottom: 8,
+    padding: 12,
   },
 });
