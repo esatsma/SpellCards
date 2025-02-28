@@ -9,25 +9,30 @@ import useDynamicHeaderStore from "@/store/dynamicHeaderStore/dynamicHeaderStore
 import { formatSpellLevel } from "@/helpers/formatSpellLevel/formatSpellLevel";
 import SpellMetaData from "@/components/SpellMetaData/SpellMetaData";
 import { Heading } from "@/components/ui/heading";
+import { Spinner } from "@/components/ui/spinner";
 
 export default function Spell() {
   useStatusBarStyle("light");
   const { spell } = useLocalSearchParams<{ spell: string }>();
   const { setDynamicHeaderTitle } = useDynamicHeaderStore();
 
-  const { data } = useSpell(spell);
+  const { data, isFetching } = useSpell(spell);
 
   useEffect(() => {
+    if (isFetching) {
+      setDynamicHeaderTitle(" ");
+    }
     if (!data) {
       return;
     }
 
     setDynamicHeaderTitle(data.name);
-  }, [data, setDynamicHeaderTitle]);
+  }, [data, isFetching, setDynamicHeaderTitle]);
 
   return (
     <ScrollView style={styles.container}>
-      {data && (
+      {isFetching && <Spinner size={"large"} color={"#eee"} />}
+      {data && !isFetching && (
         <>
           <View style={styles.subTitleContainer}>
             <Text style={styles.subTitle}>
