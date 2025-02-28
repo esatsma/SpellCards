@@ -3,14 +3,12 @@ import { ScrollView, StyleSheet, View } from "react-native";
 import useSpell from "@/hooks/queries/useSpell";
 import React, { useEffect } from "react";
 import { useLocalSearchParams } from "expo-router";
-import { Heading } from "@/components/ui/heading";
 import { Text } from "@/components/ui/text";
 import useStatusBarStyle from "@/hooks/useStatusBarStyle/useStatusBarStyle";
-import { HStack } from "@/components/ui/hstack";
-import { FontAwesome6 } from "@expo/vector-icons";
 import useDynamicHeaderStore from "@/store/dynamicHeaderStore/dynamicHeaderStore";
 import { formatSpellLevel } from "@/helpers/formatSpellLevel/formatSpellLevel";
 import SpellMetaData from "@/components/SpellMetaData/SpellMetaData";
+import { Heading } from "@/components/ui/heading";
 
 export default function Spell() {
   useStatusBarStyle("light");
@@ -45,7 +43,14 @@ export default function Spell() {
               {paragraph}
             </Text>
           ))}
-          <Text>{data.higher_level}</Text>
+          {data.higher_level && (
+            <>
+              <Heading size={"sm"} style={{ marginBottom: 0, paddingLeft: 12 }}>
+                Upcasting
+              </Heading>
+              <Text style={styles.description}>{data.higher_level}</Text>
+            </>
+          )}
         </>
       )}
     </ScrollView>
@@ -67,18 +72,6 @@ const styles = StyleSheet.create({
   },
   subTitle: {
     fontSize: 16,
-    color: "#FFF",
-  },
-  metaDataContainer: {
-    padding: 8,
-    justifyContent: "flex-start",
-    textAlign: "left",
-    backgroundColor: "#06402B",
-  },
-  metaDataItem: {
-    flex: 1,
-  },
-  metaData: {
     color: "#FFF",
   },
   description: {
