@@ -3,6 +3,7 @@ import { SafeAreaView } from "react-native";
 import useStatusBarStyle from "@/hooks/useStatusBarStyle/useStatusBarStyle";
 import SpellList from "@/components/SpellList/SpellList";
 import useSpells from "@/hooks/queries/useSpells";
+import SearchButton from "@/components/SearchButton/SearchButton";
 
 export default function Index() {
   useStatusBarStyle("light");
@@ -15,6 +16,7 @@ export default function Index() {
   return (
     <SafeAreaView style={{ flex: 1 }}>
       <SpellList spells={data?.results} />
+      <SearchButton />
     </SafeAreaView>
   );
 }
