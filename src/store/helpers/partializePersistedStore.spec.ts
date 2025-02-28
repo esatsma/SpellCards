@@ -1,17 +1,17 @@
-import partializePersistedStore from './partializePersistedStore'
+import partializePersistedStore from "./partializePersistedStore";
 
-describe('partializePersistedStore', () => {
-  it('should return a partial of the store with the `_hasHydrated` and `_setHasHydrated` keys removed', () => {
+describe("partializePersistedStore", () => {
+  it("should return a partial of the store with the `_hasHydrated` and `_setHasHydrated` keys removed", () => {
     const store = {
       _hasHydrated: true,
       _setHasHydrated: () => null,
-      actualData: 'foo'
-    }
+      actualData: "foo",
+    };
 
-    const result = partializePersistedStore<typeof store>()(store)
+    const result = partializePersistedStore<typeof store>()(store);
 
     expect(result).toEqual({
-      actualData: 'foo'
-    })
-  })
-})
+      actualData: "foo",
+    });
+  });
+});

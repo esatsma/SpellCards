@@ -1,22 +1,21 @@
-import { apiCall, API_URL } from '@/service/api'
-import { Spell } from '@/types/spellService.type'
+import { apiCall, API_URL } from "@/service/api";
+import { Spell } from "@/types/spellService.type";
 
 export interface SpellsResponse {
-  count: number,
-  results: Spell[]
+  count: number;
+  results: Spell[];
 }
 
 interface SpellsFailedResponse {
-  msg: string
+  msg: string;
 }
-
 
 const spellsRequest = () => {
   return apiCall<SpellsResponse, SpellsFailedResponse>({
-    method: 'GET',
+    method: "GET",
     url: API_URL,
-    endpoint: `/spells`
-  })
-}
+    endpoint: `/spells`,
+  });
+};
 
-export default spellsRequest
+export default spellsRequest;

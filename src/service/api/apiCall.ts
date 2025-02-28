@@ -1,67 +1,75 @@
-import ApiError from './ApiError'
+import ApiError from "./ApiError";
 
-export type FulfilledResponse<T> = { data: T; error: undefined; response: Response }
+export type FulfilledResponse<T> = {
+  data: T;
+  error: undefined;
+  response: Response;
+};
 
-export type ErrorResponse<E> = { data: undefined; error: ApiError<E>; response?: Response }
+export type ErrorResponse<E> = {
+  data: undefined;
+  error: ApiError<E>;
+  response?: Response;
+};
 
-export type ApiResponse<T, E> = ErrorResponse<E> | FulfilledResponse<T>
+export type ApiResponse<T, E> = ErrorResponse<E> | FulfilledResponse<T>;
 
 type Headers = {
-  [name: string]: string
-}
+  [name: string]: string;
+};
 
 export type ApiRequest = {
-  method: 'GET' | 'POST' | 'PUT' | 'DELETE'
-  endpoint: string
-  url: string
-  headers?: Headers
-}
+  method: "GET" | "POST" | "PUT" | "DELETE";
+  endpoint: string;
+  url: string;
+  headers?: Headers;
+};
 
 const getRequestHeaders = (headers: Headers) => {
   const baseHeaders = {
-    accept: 'application/json'
-  }
+    accept: "application/json",
+  };
 
   return {
     ...baseHeaders,
-    ...headers
-  }
-}
+    ...headers,
+  };
+};
 
 export const apiCall = async <Response, E = unknown>({
   method,
   endpoint,
   url,
-  headers = {}
+  headers = {},
 }: ApiRequest): Promise<ApiResponse<Response, E>> => {
-  const requestHeaders = getRequestHeaders(headers)
+  const requestHeaders = getRequestHeaders(headers);
 
   const promise = fetch(url + endpoint, {
     method,
-    headers: requestHeaders
-  })
+    headers: requestHeaders,
+  });
 
-  const [result] = await Promise.allSettled([promise])
+  const [result] = await Promise.allSettled([promise]);
 
-  if (result.status !== 'fulfilled') {
+  if (result.status !== "fulfilled") {
     return {
       error: ApiError.fromError(result.reason as Error),
-      data: undefined
-    } as ErrorResponse<E>
+      data: undefined,
+    } as ErrorResponse<E>;
   }
 
-  const response = result.value
+  const response = result.value;
 
-  let responseBody
+  let responseBody;
 
   try {
-    responseBody = await response.json()
+    responseBody = await response.json();
   } catch (error: unknown) {
     return {
       data: undefined,
       error: ApiError.fromError(error as Error),
-      response
-    } as ErrorResponse<E>
+      response,
+    } as ErrorResponse<E>;
   }
 
   if (!response.ok) {
@@ -69,16 +77,16 @@ export const apiCall = async <Response, E = unknown>({
       data: undefined,
       error: new ApiError(
         `request failed with status code ${response.status}`,
-        await Promise.resolve(responseBody)
+        await Promise.resolve(responseBody),
       ),
-      response
-    } as ErrorResponse<E>
+      response,
+    } as ErrorResponse<E>;
   }
 
   return {
     data: await responseBody,
-    response
-  } as FulfilledResponse<Response>
-}
+    response,
+  } as FulfilledResponse<Response>;
+};
 
-export default apiCall
+export default apiCall;

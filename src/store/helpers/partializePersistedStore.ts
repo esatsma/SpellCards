@@ -1,14 +1,17 @@
-import { StoreWithPersistence } from '../types'
+import { StoreWithPersistence } from "../types";
 
 const partializePersistedStore = <T>() => {
   return (state: StoreWithPersistence<T>) => {
-    const excludedKeys = ['_hasHydrated', '_setHasHydrated']
+    const excludedKeys = ["_hasHydrated", "_setHasHydrated"];
     const allowed = Object.fromEntries(
-      Object.entries(state).filter(([key]) => !excludedKeys.includes(key))
-    )
+      Object.entries(state).filter(([key]) => !excludedKeys.includes(key)),
+    );
 
-    return allowed as Omit<StoreWithPersistence<T>, '_hasHydrated' | '_setHasHydrated'>
-  }
-}
+    return allowed as Omit<
+      StoreWithPersistence<T>,
+      "_hasHydrated" | "_setHasHydrated"
+    >;
+  };
+};
 
-export default partializePersistedStore
+export default partializePersistedStore;

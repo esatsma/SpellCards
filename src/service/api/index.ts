@@ -1,3 +1,3 @@
-export * from './apiCall'
+export * from "./apiCall";
 
-export * from './apiUrls'
+export * from "./apiUrls";
