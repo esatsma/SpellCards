@@ -1,5 +1,5 @@
 import React from "react";
-import { View } from "react-native";
+import { SafeAreaView } from "react-native";
 import useStatusBarStyle from "@/hooks/useStatusBarStyle/useStatusBarStyle";
 import SpellList from "@/components/SpellList/SpellList";
 import useSpells from "@/hooks/queries/useSpells";
@@ -13,8 +13,8 @@ export default function Index() {
   }
 
   return (
-    <View style={{ padding: 8, flex: 1 }}>
+    <SafeAreaView style={{ flex: 1 }}>
       <SpellList spells={data?.results} />
-    </View>
+    </SafeAreaView>
   );
 }

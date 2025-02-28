@@ -25,7 +25,7 @@ export const SpellCard = (spell: Spell) => {
         onPressOut={() => setIsPressed(false)}
       >
         <Card size="md" variant="elevated" style={styles.cardHeader}>
-          <Heading size="xl" style={styles.title} isTruncated numberOfLines={1}>
+          <Heading size="lg" style={styles.title} isTruncated numberOfLines={1}>
             {spell.name}
           </Heading>
           <View style={styles.cardContent}>
@@ -42,7 +42,6 @@ const styles = StyleSheet.create({
   card: {
     backgroundColor: "#FFF",
     borderColor: "#06402B",
-    borderTopWidth: 1,
     borderBottomWidth: 1,
     padding: 4,
   },

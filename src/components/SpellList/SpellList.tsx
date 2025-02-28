@@ -12,9 +12,6 @@ const SpellList = ({ spells }: SpellListProps) => {
     <FlatList
       data={spells}
       renderItem={({ item }) => <SpellCard {...item} />}
-      ItemSeparatorComponent={() => (
-        <View style={{ height: 8, backgroundColor: "#EEE" }} />
-      )}
     />
   );
 };

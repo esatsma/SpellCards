@@ -47,7 +47,7 @@ const EmptyScreen = () => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    padding: 8,
+    paddingBottom: 8,
   },
   emptyList: {
     flexDirection: "row",
