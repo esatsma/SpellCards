@@ -9,7 +9,6 @@ export type HeaderProps = {
   subtitle?: string;
   canGoBack?: boolean;
   onPressBack: VoidFunction;
-  buttonRight?: React.ReactNode;
 };
 
 const styles = StyleSheet.create({
@@ -21,9 +20,6 @@ const styles = StyleSheet.create({
     paddingBottom: 12,
     paddingHorizontal: 16,
     position: "relative",
-  },
-  leftPadding: {
-    marginLeft: 40,
   },
   rightPadding: {
     marginRight: 40,
@@ -40,18 +36,13 @@ const styles = StyleSheet.create({
   },
 });
 
-const Header = ({
-  title,
-  canGoBack,
-  onPressBack,
-  buttonRight,
-}: HeaderProps) => {
+const Header = ({ title, canGoBack, onPressBack }: HeaderProps) => {
   const insets = useSafeAreaInsets();
 
   return (
     <View style={[styles.container, { paddingTop: insets.top + 12 }]}>
       {canGoBack && <HeaderBackButton onPress={onPressBack} />}
-      <View style={[styles.titleContainer, !canGoBack && styles.leftPadding]}>
+      <View style={[styles.titleContainer]}>
         <Heading
           size="xl"
           style={styles.text}
@@ -61,7 +52,6 @@ const Header = ({
           {title}
         </Heading>
       </View>
-      {buttonRight && buttonRight}
     </View>
   );
 };
