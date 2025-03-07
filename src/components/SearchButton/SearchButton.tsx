@@ -1,12 +1,16 @@
 import { Feather } from "@expo/vector-icons";
-import { StyleSheet, View } from "react-native";
+import { Pressable, StyleSheet, View } from "react-native";
 import { Fab, FabIcon } from "@/components/ui/fab";
 
 const SearchIcon = () => <Feather name={"search"} color={"#FFF"} size={24} />;
 
-const SearchButton = () => {
+type Props = {
+  onPress: VoidFunction;
+};
+
+const SearchButton = ({ onPress }: Props) => {
   return (
-    <View style={styles.container}>
+    <Pressable style={styles.container} onPress={onPress}>
       <Fab
         style={styles.button}
         accessibilityHint={"Search and Filter Spells"}
@@ -15,7 +19,7 @@ const SearchButton = () => {
       >
         <FabIcon as={SearchIcon} />
       </Fab>
-    </View>
+    </Pressable>
   );
 };
 
