@@ -14,6 +14,7 @@ import useStatusBarStyle from "@/hooks/useStatusBarStyle/useStatusBarStyle";
 import { useIsStoreHydrated } from "@/store/spellBookStore/spellBookStore";
 import useDynamicHeaderStore from "@/store/dynamicHeaderStore/dynamicHeaderStore";
 import { GestureHandlerRootView } from "react-native-gesture-handler";
+import { BottomSheetModalProvider } from "@gorhom/bottom-sheet";
 
 // Prevent the splash screen from auto-hiding before asset loading is complete.
 SplashScreen.preventAutoHideAsync();
@@ -35,33 +36,37 @@ export default function RootLayout() {
   }, [loaded, isSpellBookStoreHydrated]);
 
   return (
-    <GestureHandlerRootView>
-      <GluestackUIProvider mode="light">
-        <QueryClientProvider client={QueryClient}>
-          <Stack
-            screenOptions={{
-              headerShown: true,
-              header: (props) => (
-                <Header
-                  title={
-                    props.options.title ? props.options.title : props.route.name
-                  }
-                  onPressBack={props.navigation.goBack}
-                  canGoBack={props.navigation.canGoBack()}
-                />
-              ),
-            }}
-          >
-            <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
-            <Stack.Screen
-              name={"[spell]"}
-              options={{ headerShown: true, title: dynamicHeaderTitle }}
-            />
-            <Stack.Screen name="+not-found" />
-          </Stack>
-          <StatusBar style="auto" />
-        </QueryClientProvider>
-      </GluestackUIProvider>
-    </GestureHandlerRootView>
+    <GluestackUIProvider mode="light">
+      <QueryClientProvider client={QueryClient}>
+        <GestureHandlerRootView>
+          <BottomSheetModalProvider>
+            <Stack
+              screenOptions={{
+                headerShown: true,
+                header: (props) => (
+                  <Header
+                    title={
+                      props.options.title
+                        ? props.options.title
+                        : props.route.name
+                    }
+                    onPressBack={props.navigation.goBack}
+                    canGoBack={props.navigation.canGoBack()}
+                  />
+                ),
+              }}
+            >
+              <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
+              <Stack.Screen
+                name={"[spell]"}
+                options={{ headerShown: true, title: dynamicHeaderTitle }}
+              />
+              <Stack.Screen name="+not-found" />
+            </Stack>
+            <StatusBar style="auto" />
+          </BottomSheetModalProvider>
+        </GestureHandlerRootView>
+      </QueryClientProvider>
+    </GluestackUIProvider>
   );
 }

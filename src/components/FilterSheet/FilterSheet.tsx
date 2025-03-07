@@ -1,36 +1,44 @@
-import React, { useCallback, useMemo, useRef } from "react";
-import { View, Text, StyleSheet } from "react-native";
-import { GestureHandlerRootView } from "react-native-gesture-handler";
-import BottomSheet, { BottomSheetView } from "@gorhom/bottom-sheet";
+import React from "react";
+import { StyleSheet } from "react-native";
+import { BottomSheetView } from "@gorhom/bottom-sheet";
+import { useSafeAreaInsets } from "react-native-safe-area-context";
+import { BottomSheetModalInstance } from "@/components/BottomSheetModal/content/BottomSheetInstance";
+import { Heading } from "@/components/ui/heading";
+import InputSelect from "@/components/InputSelect/InputSelect";
+import { dndClasses } from "@/types/dndClasses.type";
 
-const FilterSheet = () => {
-  // ref
-  const bottomSheetRef = useRef<BottomSheet>(null);
+const FilterSheet = (): BottomSheetModalInstance => {
+  const insets = useSafeAreaInsets();
 
-  // callbacks
-  const handleSheetChanges = useCallback((index: number) => {
-    console.log("handleSheetChanges", index);
-  }, []);
-
-  // renders
   return (
-    <BottomSheet ref={bottomSheetRef} onChange={handleSheetChanges}>
-      <BottomSheetView style={styles.contentContainer}>
-        <Text>Awesome 🎉</Text>
-      </BottomSheetView>
-    </BottomSheet>
+    <BottomSheetView
+      style={[styles.container, { paddingBottom: insets.bottom }]}
+    >
+      <Heading size={"xl"} style={styles.sheetHeader}>
+        Filter by
+      </Heading>
+      <Heading size={"sm"}>Class</Heading>
+      <InputSelect
+        options={dndClasses}
+        placeholder={"Select a class"}
+        onSelect={(selectedOption) => {
+          console.log(selectedOption);
+        }}
+      />
+    </BottomSheetView>
   );
 };
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "grey",
+    color: "#EEE",
+    backgroundColor: "#FFFFFF",
+    paddingHorizontal: 20,
+    paddingTop: 20,
   },
-  contentContainer: {
-    flex: 1,
-    padding: 36,
-    alignItems: "center",
+  sheetHeader: {
+    textAlign: "center",
   },
 });
 

@@ -10,24 +10,21 @@ type Props = {
 
 const SearchButton = ({ onPress }: Props) => {
   return (
-    <Pressable style={styles.container} onPress={onPress}>
-      <Fab
-        style={styles.button}
-        accessibilityHint={"Search and Filter Spells"}
-        size={"lg"}
-        placement={"bottom right"}
-      >
-        <FabIcon as={SearchIcon} />
-      </Fab>
-    </Pressable>
+    <Fab
+      onPress={onPress}
+      style={styles.button}
+      accessibilityHint={"Search and Filter Spells"}
+      size={"lg"}
+      placement={"bottom right"}
+    >
+      <FabIcon as={SearchIcon} />
+    </Fab>
   );
 };
 
 const styles = StyleSheet.create({
-  container: {
-    marginBottom: 50,
-  },
   button: {
+    marginBottom: 50,
     backgroundColor: "#06402B",
   },
 });
